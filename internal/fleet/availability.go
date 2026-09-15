@@ -24,5 +24,5 @@ func Available(v Vehicle, date string) bool {
 }
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Available(Inventory()[0], r.URL.Query().Get("date")))
+	json.NewEncoder(w).Encode(Search(Inventory(), r.URL.Query().Get("branch"), r.URL.Query().Get("date")))
 }
