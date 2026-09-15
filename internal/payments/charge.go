@@ -11,7 +11,7 @@ type Service struct {
 }
 
 func New(p PaymentFunc, n func(string)) *Service { return &Service{p, n} }
-func (s *Service) Charge(id string) error        { return s.pay(id) }
+func (s *Service) Charge(id string) error        { return Retry(s.pay, s.notify, id) }
 func (s *Service) Handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "use POST", 405)
